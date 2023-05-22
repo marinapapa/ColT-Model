@@ -23,7 +23,7 @@ To build the software under Linux (Debian packet system):
 
 # The model
 
-![alt text](https://github.com/marinapapa/HoPE-model/blob/main/simulation_screenshot.PNG)
+![alt text](https://github.com/marinapapa/ColT-Model/blob/main/simulation_screenshot.PNG)
 
 ## _Framework_ 
 

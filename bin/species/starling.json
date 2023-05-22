@@ -1,0 +1,194 @@
+{
+  "Starling": {
+    "N": 30,
+    "shape": "starling.ac",
+    "scale": 1,
+    "InitCondit": {
+      "type": "flock",
+      "speed": 10,
+      "pos": [ 1, 1, 0 ],
+      "dir": [ 1, 0, 0 ],
+      "radius": 20,
+      "degdev": 10,
+      "file": ""
+    },
+    "aero": {
+      "maxSpeed": 20,
+      "minSpeed": 5,
+      "cruiseSpeedSd": 0,
+      "bodyMass": 0.45,
+      "bodyMassSd": 0.0,
+      "wingSpan": 0.7,
+      "wingAspectRatio": 7,
+      "wingArea": 0.07,
+      "maxSteerF": 10
+      },
+
+    "stress": {
+      "decay": 0.12,
+      "ind_var_mean": 0.05,
+      "ind_var_sd": 0.02,
+      "sources": [
+        {
+          "name": "predator_distance",
+          "w": 0.5,
+          "distr_shape": 20
+        }
+      ]
+    },
+    "states": [
+      {
+        "name": "transient",
+        "description": "normal flocking",
+        "tr": 0.05,
+
+        "aeroState": {
+          "cruiseSpeed": 6.0,
+          "w": 0.3
+        },
+
+        "actions": [
+          {
+            "name": "align_n",
+            "topo": 7,
+            "fov": 270,
+            "maxdist": 200,
+            "w": 5
+          },
+          {
+            "name": "cohere_centroid_distance",
+            "topo": 7,
+            "fov": 270,
+            "maxdist": 200,
+            "w": 0.5
+          },
+          {
+            "name": "avoid_n_position",
+            "topo": 1,
+            "fov": 270,
+            "minsep": 1,
+            "maxdist": 200,
+            "w": 1
+          },
+          {
+            "name": "copy_escape",
+            "topo": 7,
+            "fov": 270,
+            "maxdist": 200
+          },
+          {
+            "name": "wiggle",
+            "w": 0.2
+          }
+        ]
+      },
+      {
+        "name": "persistent",
+        "description": "escape penalty",
+        "tr": 0.05,
+        "duration": 2,
+
+        "aeroState": {
+          "cruiseSpeed": 6,
+          "w": 0.3
+        },
+
+        "actions": [
+          {
+            "name": "wiggle",
+            "w": 0.2
+          },
+          {
+            "name": "align_n",
+            "topo": 7,
+            "fov": 270,
+            "maxdist": 200,
+            "w": 5
+          },
+          {
+            "name": "cohere_centroid_distance",
+            "topo": 7,
+            "fov": 270,
+            "maxdist": 200,
+            "w": 0.5
+          },
+          {
+            "name": "avoid_n_position",
+            "topo": 1,
+            "fov": 270,
+            "minsep": 1,
+            "maxdist": 200,
+            "w": 1
+          }
+        ]
+      },
+      {
+        "name": "persistent",
+        "description": "escape turn",
+        "tr": 0.05,
+        "duration": 4,
+
+        "aeroState": {
+          "cruiseSpeed": 6,
+          "w": 0.3
+        },
+
+        "actions": [
+          {
+            "name": "relative_roosting_persistant",
+            "home_dist": 20,
+            "home_direction": 90,
+            "w": 5
+          },
+          {
+            "name": "align_n",
+            "topo": 7,
+            "fov": 270,
+            "maxdist": 200,
+            "w": 5
+          },
+          {
+            "name": "cohere_centroid_distance",
+            "topo": 7,
+            "fov": 270,
+            "maxdist": 200,
+            "w": 0.5
+          },
+          {
+            "name": "avoid_n_position",
+            "topo": 1,
+            "fov": 270,
+            "minsep": 1,
+            "maxdist": 200,
+            "w": 1
+          },
+          {
+            "name": "wiggle",
+            "w": 0.2
+          }
+        ]
+      }
+    ],
+    "transitions": {
+      "name": "piecewise_linear_interpolator",
+      "TM": [
+        [
+          [ 1, 0, 0 ],
+          [ 1, 0, 0 ],
+          [ 0, 1, 0 ]
+        ],
+        [
+          [ 0.999, 0, 0.001 ],
+          [ 1, 0, 0 ],
+          [ 0, 1, 0 ]
+        ],
+        [
+          [ 0.99, 0, 0.01 ],
+          [ 1, 0, 0 ],
+          [ 0, 1, 0 ]
+        ]
+      ],
+      "edges": [ 0, 0.5, 1 ]
+    }
+  }
+}

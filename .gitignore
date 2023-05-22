@@ -1,0 +1,7 @@
+tmp
+.vs
+/bin/Debug
+/bin/sim_data
+*.ilk
+*.pdb
+/packages
